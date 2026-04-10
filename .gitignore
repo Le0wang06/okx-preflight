@@ -35,6 +35,3 @@ coverage
 .pnpm-store
 tsconfig.tsbuildinfo
 
-# prisma local db
-prisma/dev.db
-prisma/dev.db-journal
