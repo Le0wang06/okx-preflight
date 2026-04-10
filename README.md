@@ -8,6 +8,7 @@ Lean foundation for building an OKX-powered preflight safety app.
 - pnpm package manager
 - ESLint + Prettier + lint-staged
 - Server-side OKX signing/client scaffold
+- CI workflow for lint/type/build checks
 
 ## Quick start
 
@@ -42,6 +43,23 @@ Set these in `.env.local`:
 - `OKX_SECRET_KEY`
 - `OKX_PASSPHRASE`
 - `OKX_PROJECT_ID` (optional)
+
+## Hardening included now
+
+- Server-only env and OKX client modules (`server-only`) to prevent accidental client bundling
+- OKX request timeout + retry behavior in `src/server/okx/client.ts`
+- Structured application error type in `src/server/errors.ts`
+- Credential validation that catches partial env config
+- CI workflow at `.github/workflows/ci.yml`
+
+## Reliability notes
+
+- `okxRequest` retries on `429` and `5xx` responses with incremental backoff
+- `okxRequest` times out by default after 15 seconds
+- Authenticated requests require all three credentials:
+  - `OKX_API_KEY`
+  - `OKX_SECRET_KEY`
+  - `OKX_PASSPHRASE`
 
 ## What is intentionally not included yet
 
