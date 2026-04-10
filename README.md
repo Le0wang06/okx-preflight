@@ -13,20 +13,22 @@ Lean foundation for building an OKX-powered preflight safety app.
 ## Quick start
 
 1. Ensure Node.js `22.18.0` is active.
-2. Install dependencies:
-   - `corepack pnpm install`
-3. Copy env file:
-   - `cp .env.example .env.local`
-4. Start local dev:
+2. Run bootstrap:
+   - `./scripts/dev/bootstrap.sh`
+3. Start local dev:
    - `corepack pnpm dev`
 
 ## Initial scripts
 
 - `pnpm dev` - run local app
+- `pnpm dev:host` - run dev server on `0.0.0.0:3000`
 - `pnpm build` - production build
 - `pnpm lint` - lint code
 - `pnpm typecheck` - TypeScript checks
 - `pnpm check` - lint + typecheck + build
+- `pnpm env:check` - validate local environment
+- `pnpm env:check:auth` - validate environment for authenticated OKX calls
+- `pnpm dev:doctor` - quick local health check (env + lint + types)
 - `pnpm format` - format all files
 
 ## Current foundation endpoints
@@ -43,6 +45,10 @@ Set these in `.env.local`:
 - `OKX_SECRET_KEY`
 - `OKX_PASSPHRASE`
 - `OKX_PROJECT_ID` (optional)
+
+For authenticated API testing, run:
+
+- `corepack pnpm env:check:auth`
 
 ## Hardening included now
 
@@ -66,3 +72,10 @@ Set these in `.env.local`:
 - No database or Prisma setup
 - No wallet connection UI
 - No swap routing or preflight scoring logic
+
+## Developer workflow
+
+- Start from `main` and create a feature branch
+- Use `corepack pnpm check` before every push
+- Open a PR with summary + test notes (template included)
+- See `CONTRIBUTING.md` for details
