@@ -1,12 +1,24 @@
 import { NextResponse } from "next/server";
-import { hasOkxCredentials } from "@/lib/env";
+import { getOkxCredentials } from "@/lib/env";
 
 export async function GET() {
-  return NextResponse.json(
-    {
-      ok: true,
-      hasCredentials: hasOkxCredentials(),
-    },
-    { status: 200 },
-  );
+  try {
+    const credentials = getOkxCredentials();
+    return NextResponse.json(
+      {
+        ok: true,
+        hasCredentials: Boolean(credentials),
+      },
+      { status: 200 },
+    );
+  } catch (error) {
+    return NextResponse.json(
+      {
+        ok: false,
+        hasCredentials: false,
+        error: error instanceof Error ? error.message : "Invalid OKX environment configuration.",
+      },
+      { status: 200 },
+    );
+  }
 }
