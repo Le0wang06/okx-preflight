@@ -1,0 +1,30 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Install Dependencies",
+      "type": "shell",
+      "command": "corepack pnpm install",
+      "problemMatcher": []
+    },
+    {
+      "label": "Environment Check",
+      "type": "shell",
+      "command": "corepack pnpm env:check",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run Dev Server",
+      "type": "shell",
+      "command": "corepack pnpm dev",
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Validate Project",
+      "type": "shell",
+      "command": "corepack pnpm check",
+      "problemMatcher": []
+    }
+  ]
+}
