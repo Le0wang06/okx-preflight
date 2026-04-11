@@ -9,6 +9,7 @@ Lean foundation for building an OKX-powered preflight safety app.
 - ESLint + Prettier + lint-staged
 - Server-side OKX signing/client scaffold
 - CI workflow for lint/type/build checks
+- Security automation with CodeQL, Dependabot, and secrets scanning
 
 ## Quick start
 
@@ -79,3 +80,10 @@ For authenticated API testing, run:
 - Use `corepack pnpm check` before every push
 - Open a PR with summary + test notes (template included)
 - See `CONTRIBUTING.md` for details
+
+## Security automation
+
+- `CodeQL` workflow runs static security/quality analysis on PRs and pushes
+- `Dependabot` opens dependency and GitHub Actions update PRs weekly
+- `Secrets Scan` workflow runs gitleaks on PRs/pushes to catch accidental credential leaks
+- See `SECURITY.md` for reporting and handling guidance
