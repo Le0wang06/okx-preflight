@@ -16,9 +16,9 @@ fi
 
 echo "Running environment check..."
 corepack pnpm env:check
+corepack pnpm env:check:example
 
 echo "Running baseline checks..."
-corepack pnpm lint
-corepack pnpm typecheck
+corepack pnpm check
 
 echo "Bootstrap complete."

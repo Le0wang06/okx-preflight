@@ -29,7 +29,9 @@ Lean foundation for building an OKX-powered preflight safety app.
 - `pnpm check` - lint + typecheck + build
 - `pnpm env:check` - validate local environment
 - `pnpm env:check:auth` - validate environment for authenticated OKX calls
+- `pnpm env:check:example` - validate `.env.example` consistency
 - `pnpm dev:doctor` - quick local health check (env + lint + types)
+- `pnpm clean` - remove build and TypeScript cache artifacts
 - `pnpm format` - format all files
 
 ## Current foundation endpoints
@@ -50,6 +52,10 @@ Set these in `.env.local`:
 For authenticated API testing, run:
 
 - `corepack pnpm env:check:auth`
+
+For parser validation against repository templates, run:
+
+- `corepack pnpm env:check:example`
 
 ## Hardening included now
 

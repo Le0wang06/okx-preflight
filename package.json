@@ -17,7 +17,9 @@
     "check": "corepack pnpm lint && corepack pnpm typecheck && corepack pnpm build",
     "env:check": "node ./scripts/dev/check-env.mjs",
     "env:check:auth": "node ./scripts/dev/check-env.mjs --require-auth",
+    "env:check:example": "node ./scripts/dev/check-env.mjs --file .env.example",
     "dev:doctor": "corepack pnpm env:check && corepack pnpm lint && corepack pnpm typecheck",
+    "clean": "rm -rf .next tsconfig.tsbuildinfo",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint-staged": "lint-staged"

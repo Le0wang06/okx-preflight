@@ -5,7 +5,9 @@ import path from "node:path";
 import process from "node:process";
 
 const cwd = process.cwd();
-const envPath = path.join(cwd, ".env.local");
+const fileArgIndex = process.argv.findIndex((arg) => arg === "--file");
+const envFile = fileArgIndex >= 0 ? process.argv[fileArgIndex + 1] : ".env.local";
+const envPath = path.join(cwd, envFile);
 const requireAuth = process.argv.includes("--require-auth");
 
 const requiredCoreKeys = ["OKX_API_BASE_URL"];
@@ -26,16 +28,18 @@ for (const line of lines) {
     continue;
   }
 
-  const idx = trimmed.indexOf("=");
+  const normalized = trimmed.startsWith("export ") ? trimmed.slice(7).trim() : trimmed;
+  const idx = normalized.indexOf("=");
   if (idx === -1) {
     continue;
   }
 
-  const key = trimmed.slice(0, idx).trim();
-  const value = trimmed
+  const key = normalized.slice(0, idx).trim();
+  const value = normalized
     .slice(idx + 1)
     .trim()
-    .replace(/^"(.*)"$/, "$1");
+    .replace(/^"(.*)"$/, "$1")
+    .replace(/^'(.*)'$/, "$1");
   values.set(key, value);
 }
 
@@ -59,9 +63,23 @@ if (requireAuth) {
   }
 }
 
+const apiBaseUrl = values.get("OKX_API_BASE_URL");
+if (apiBaseUrl) {
+  try {
+    const parsed = new URL(apiBaseUrl);
+    if (!["http:", "https:"].includes(parsed.protocol)) {
+      missing.push("OKX_API_BASE_URL(valid http/https URL)");
+    }
+  } catch {
+    missing.push("OKX_API_BASE_URL(valid URL)");
+  }
+}
+
 if (missing.length > 0) {
   console.error(`Environment check failed. Missing keys: ${missing.join(", ")}`);
   process.exit(1);
 }
 
-console.log(`Environment check passed (${requireAuth ? "auth-required" : "dev-mode"}).`);
+console.log(
+  `Environment check passed (${requireAuth ? "auth-required" : "dev-mode"}) on ${envFile}.`,
+);

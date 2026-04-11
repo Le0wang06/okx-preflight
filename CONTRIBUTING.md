@@ -18,4 +18,5 @@
 - Never commit `.env.local`
 - Use `.env.example` as the source of truth
 - Use `corepack pnpm env:check` for dev setup
+- Use `corepack pnpm env:check:example` when editing env templates
 - Use `corepack pnpm env:check:auth` before testing authenticated OKX flows
